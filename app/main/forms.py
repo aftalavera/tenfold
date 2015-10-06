@@ -1,18 +1,8 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, SubmitField, PasswordField, TextAreaField, SelectField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import required, email
-from ..models import Voter, User, City
+from ..models import Voter, City
 from wtforms import ValidationError
-
-
-class LoginForm(Form):
-    email = StringField('Email :', validators=[required(), email()])
-    password = PasswordField('Password :', validators=[required()])
-    submit = SubmitField('Login')
-
-    def validate_dpi(self, field):
-        if User.query.filter_by(email=field.data).first():
-            raise ValidationError('User with email already exists.')
 
 
 class VoterForm(Form):
