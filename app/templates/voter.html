@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div data-role="page">
+
+        <div data-role="header" data-theme="b">
+            <a href="{{ url_for('main.index') }}" data-ajax="false" data-icon="back" data-role="button">Back</a>
+            <h1>{{ action }}</h1>
+        </div><!-- /header -->
+
+        <div data-role="content">
+
+            <form method="POST" data-ajax="false">{{ form.csrf_token }}
+                <div>
+                    <span style="float: left;">{{ form.dpi.label }}</span>
+                    <span style="float: right;color: red;">
+                        {% for error in form.dpi.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </span>
+                    {{ form.dpi(size=13) }}
+                </div>
+                <div>
+                    <span style="float: left;">{{ form.name.label }}</span>
+                    <span style="float: right;color: red;">
+                        {% for error in form.name.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </span>
+                    {{ form.name() }}
+                </div>
+                <div>
+                    <span style="float: left;">{{ form.email.label }}</span>
+                    <span style="float: right;color: red;">
+                        {% for error in form.email.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </span>
+                    {{ form.email() }}
+                </div>
+
+                {{ form.phone.label }}
+                {{ form.phone() }}
+                {{ form.city_id.label }}
+                {{ form.city_id() }}
+                {{ form.referred.label }}
+                {{ form.referred() }}
+
+                {{ form.submit(**{'data-role':"button", 'data-theme': "b"}) }}
+            </form>
+
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+
+
+        </div><!-- /content -->
+
+        <div data-role="footer" >
+            <h1></h1>
+        </div><!-- /footer -->
+
+    </div>
+{% endblock %}

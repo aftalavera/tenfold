@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div data-role="page">
+	
+		<div data-role="header" data-theme="b" >
+            <a href="{{ url_for('auth.logout') }}" data-ajax="false" data-icon="" data-role="button">Logout</a>
+			<h1>Electores</h1>
+            <a href="{{ url_for('main.voter_add') }}" data-ajax="false" class="ui-btn-right" data-icon="plus" data-role="button">Add</a>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+			<ul data-role="listview" data-filter="true">
+			
+            {% for voter in voters %}
+				<li>
+                    <a href="{{ url_for('main.voter_edit', voterid=voter.id) }}" data-ajax="false" class="ui-link-inherit">{{ voter.name }}</a>
+                </li>
+            {% endfor %}
+			
+			</ul>
+		</div><!-- /content -->
+		
+		<div data-role="footer" >
+            <h1></h1>
+		</div><!-- /footer -->
+
+	</div>
+{% endblock %}

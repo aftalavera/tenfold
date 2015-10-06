@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - tenfold@sdipr.net" uuid="9fb454b9-0b2d-4c1f-9158-7bb25d267968">
+      <secret-storage>master_key</secret-storage>
+      <user-name>tenfold</user-name>
+      <schema-pattern>tenfold.*</schema-pattern>
+      <default-schemas>tenfold.*</default-schemas>
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - tenfold@sdipr.net" uuid="9fb454b9-0b2d-4c1f-9158-7bb25d267968">
+    <database-info product="MySQL" version="5.5.32-cll-lve" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.29 ( Revision: alexander.soklakov@oracle.com-20140120140810-s44574olh90i6i4l )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="tenfold"/>
+    <table name="alembic_version" schema="" catalog="tenfold" type="TABLE">
+      <column name="version_num" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+    </table>
+    <table name="cities" schema="" catalog="tenfold" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="department_code" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="department_nam" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city_code" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="city_nam" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="voters_ibfk_1" table="voters" schema="" catalog="tenfold" columns="city_id"/>
+    </table>
+    <table name="users" schema="" catalog="tenfold" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="dpi" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password_hash" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="voters_ibfk_2" table="voters" schema="" catalog="tenfold" columns="user_id"/>
+      <index name="dpi" unique="true" columns="dpi"/>
+    </table>
+    <table name="voters" schema="" catalog="tenfold" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="dpi" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="department" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="referred" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="voted" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="city_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="voters_ibfk_1" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="tenfold" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="voters_ibfk_2" columns="user_id" ref-table="users" ref-schema="" ref-catalog="tenfold" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="dpi" unique="true" columns="dpi"/>
+    </table>
+  </data-source>
+</component>

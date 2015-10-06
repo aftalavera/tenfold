@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div data-role="page">
+
+        <div data-role="header" data-theme="b">
+            <h1>M1X10</h1>
+        </div><!-- /header -->
+
+        <div data-role="content">
+
+            <form method="POST" data-ajax="false">{{ form.csrf_token }}
+                <div>
+                    <span style="float: left;">{{ form.email.label }}</span>
+                    <span style="float: right;color: red;">
+                        {% for error in form.email.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </span>
+                    {{ form.email(size=13) }}
+                </div>
+                <div>
+                    <span style="float: left;">{{ form.password.label }}</span>
+                    <span style="float: right;color: red;">
+                        {% for error in form.password.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </span>
+                    {{ form.password(size=13) }}
+                </div>
+
+                {{ form.submit(**{'data-role':"button", 'data-inline': "true", 'data-theme': "b"}) }}
+            </form>
+
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+
+
+        </div><!-- /content -->
+
+        <div data-role="footer" >
+            <h1></h1>
+        </div><!-- /footer -->
+
+    </div>
+{% endblock %}
