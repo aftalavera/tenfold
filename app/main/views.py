@@ -30,7 +30,7 @@ def voter_add():
 @main.route('/voter/edit/<int:voterid>', methods=['POST', 'GET'])
 @login_required
 def voter_edit(voterid):
-    voter = Voter.query.get_or_404(voterid)
+    voter = Voter.query.filter_by(id=voterid, user_id=current_user.id).first_or_404()
     form = VoterEditForm(obj=voter)
     if form.validate_on_submit():
         voter.dpi = form.dpi.data
@@ -47,7 +47,7 @@ def voter_edit(voterid):
 @main.route('/voter/delete/<int:voterid>', methods=['POST', 'GET'])
 @login_required
 def voter_delete(voterid):
-    voter = Voter.query.get_or_404(voterid)
+    voter = Voter.query.filter_by(id=voterid, user_id=current_user.id).first_or_404()
     db.session.delete(voter)
     db.session.commit()
     return redirect(url_for('main.index'))
