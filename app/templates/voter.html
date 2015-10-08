@@ -18,7 +18,7 @@
                             {{error}}
                         {% endfor %}
                     </span>
-                    {{ form.dpi(size=13) }}
+                    {{ form.dpi(size=13,**{'pattern':"[0-9]*"}) }}
                 </div>
                 <div>
                     <span style="float: left;">{{ form.name.label }}</span>
@@ -41,6 +41,9 @@
 
                 {{ form.phone.label }}
                 {{ form.phone() }}
+                {{ form.department.label }}
+                {{ form.department() }}
+                <input id="trick" type="hidden">
                 {{ form.city_id.label }}
                 {{ form.city_id() }}
                 {{ form.referred.label }}
@@ -61,4 +64,15 @@
         </div><!-- /footer -->
 
     </div>
+    <script>
+        $('#department').change(function (){
+            $('#trick').val($('#department option:selected').text());
+            $("#trick").change();
+        })
+
+        $(function() {
+            $('#city_id').filterByText($('#trick'));
+        });
+    </script>
+
 {% endblock %}

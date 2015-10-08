@@ -2,6 +2,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import required, email
 from ..models import Voter, City
+from .. import db
 from wtforms import ValidationError
 
 
@@ -11,6 +12,7 @@ class VoterForm(Form):
     name = StringField('Name :', validators=[required('Name is required.')])
     email = StringField('Email :', validators=[required('Email is required.'), email()])
     phone = StringField('Phone :')
+    department = SelectField('Department :', coerce=int)
     city_id = SelectField('Location :', coerce=int)
     referred = TextAreaField('Referred :')
     submit = SubmitField('Save')
@@ -19,6 +21,8 @@ class VoterForm(Form):
         super(VoterForm, self).__init__(*args, **kwargs)
         self.city_id.choices = [(city.id, city.department_nam + '/' + city.city_nam)
                                 for city in City.query.order_by('department_nam', 'city_nam').all()]
+        query = db.session.query(City.department_nam.distinct().label("department"))
+        self.department.choices = [(i, row.department) for i, row in enumerate(query.order_by('department').all())]
 
     def validate_dpi(self, field):
         if Voter.query.filter_by(dpi=field.data).first():

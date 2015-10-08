@@ -39,7 +39,6 @@ def voter_edit(voterid):
         voter.referred = form.referred.data
         voter.city_id = form.city_id.data
         voter.email = form.email.data
-        db.session.add(voter)
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('edit_voter.html', action='Edit Voter', form=form, id=voter.id)

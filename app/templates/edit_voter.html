@@ -18,7 +18,7 @@
                             {{error}}
                         {% endfor %}
                     </span>
-                    {{ form.dpi(size=13) }}
+                    {{ form.dpi(size=13, **{'pattern':"[0-9]*"}) }}
                 </div>
                 <div>
                     <span style="float: left;">{{ form.name.label }}</span>
