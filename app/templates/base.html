@@ -3,30 +3,60 @@
 <head>
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
-	<script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
-	<script src="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+
+{#    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.css" />#}
+{#	<script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>#}
+{#	<script src="https://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>#}
+
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/old_fashion.min.css') }}" />#}
+{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/jquery.mobile.icons.min.css') }}" />#}
+{#    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />#}
+{#    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>#}
+{#    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>#}
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/vue.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/util.js')}}"></script>
 </head>
 
-<body>
-    {% block content %}
+<body id="app">
+
     <div data-role="page">
 
-        <div data-role="header" data-theme="b">
+        <div data-role="header">
+        {% block header %}
             <h1></h1>
+        {% endblock %}
         </div><!-- /header -->
 
         <div data-role="content">
-
+        {% block content %}
+        {% endblock %}
         </div><!-- /content -->
 
-        <div data-role="footer" >
+        <div data-role="footer">
+        {% block footer %}
             <h1></h1>
+        {% endblock %}
         </div><!-- /footer -->
 
     </div>
-    {% endblock %}
+
 </body>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'hola'
+            }
+        })
+
+    </script>
+
 </html>
 

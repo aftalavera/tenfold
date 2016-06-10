@@ -1,5 +1,8 @@
+import os
 from flask import render_template, redirect, url_for
 from flask.ext.login import login_required, current_user
+from werkzeug.utils import secure_filename
+
 from . import main
 from .. import db
 from ..models import Voter, City
@@ -40,6 +43,19 @@ def voter_edit(voterid):
         voter.city_id = form.city_id.data
         voter.email = form.email.data
         db.session.commit()
+
+        # TODO: por aqui voy la presencia o no de archivo para upload
+        # TODO: esto es el edit hay que incorporar en el add
+
+        file = form.photo.data
+
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join('/home/aftalavera/Dropbox/Documents/PycharmProjects/tenfold/app/static/uploads', filename))
+            voter.photo = filename
+            db.session.commit()
+
+            return redirect('/static/uploads/' + filename)
         return redirect(url_for('main.index'))
     return render_template('edit_voter.html', action='Edit Voter', form=form, id=voter.id)
 

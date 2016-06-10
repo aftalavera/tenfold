@@ -1,37 +1,29 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <a href="{{ url_for('main.index') }}" data-ajax="false" data-icon="back" data-role="button">Back</a>
+    <h1>Ciudades</h1>
+{%  endblock %}
+
+
 {% block content %}
-<div data-role="page" data-add-back-btn="true">
 
-    <div data-role="header" data-theme="b" >
-        <a href="{{ url_for('main.index') }}" data-ajax="false" data-icon="back" data-role="button">Back</a>
-        <h1>Ciudades</h1>
-    </div><!-- /header -->
+    <ul data-role="listview" data-filter="true">
 
-    <div data-role="content">
-        <ul data-role="listview" data-filter="true">
+    {% for city in cities %}
+        <li>
+            <a href="" class="ui-link-inherit">{{ city.city_nam }}</a>
+        </li>
+    {% endfor %}
 
-        {% for city in cities %}
-            <li>
-                <a href="" class="ui-link-inherit">{{ city.city_nam }}</a>
-            </li>
-        {% endfor %}
+    </ul>
 
-        </ul>
-    </div><!-- /content -->
-
-    <div data-role="footer" >
-        <h1></h1>
-    </div><!-- /footer -->
-
-</div>
-
-<script>
+    <script>
         $(document).on( 'taphold', 'li.item', tapholdHandler );
 
         function tapholdHandler( event ){
           alert('Hello');
         }
-</script>
+    </script>
 
 {% endblock %}

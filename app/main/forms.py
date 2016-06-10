@@ -1,9 +1,10 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, SubmitField, TextAreaField, SelectField
+from flask.ext.wtf.file import FileAllowed, FileField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, ValidationError
 from wtforms.validators import required, email
 from ..models import Voter, City
 from .. import db
-from wtforms import ValidationError
+
 
 
 class VoterForm(Form):
@@ -15,6 +16,7 @@ class VoterForm(Form):
     department = SelectField('Department :', coerce=int)
     city_id = SelectField('Location :', coerce=int)
     referred = TextAreaField('Referred :')
+    photo = FileField('Photo :', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Invalid image!')])
     submit = SubmitField('Save')
 
     def __init__(self, *args, **kwargs):
@@ -37,6 +39,7 @@ class VoterEditForm(Form):
     phone = StringField('Phone :')
     city_id = SelectField('Location :', coerce=int)
     referred = TextAreaField('Referred :')
+    photo = FileField('Photo :', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Invalid image!')])
     submit = SubmitField('Save')
 
     def __init__(self, *args, **kwargs):

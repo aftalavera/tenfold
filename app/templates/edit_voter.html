@@ -1,64 +1,62 @@
 {% extends "base.html" %}
 
+
+{% block header %}
+    <a href="{{ url_for('main.index') }}" data-ajax="false" data-icon="back" data-role="button">Back</a>
+    <h1>{{ action }} ({% raw %}{{ message }}{% endraw %})</h1>
+    <a href="{{ url_for('main.voter_delete', voterid=id) }}" data-ajax="false" data-icon="delete" data-role="button">Delete</a>
+{% endblock %}
+
+
 {% block content %}
-    <div data-role="page">
 
-        <div data-role="header" data-theme="b">
-            <a href="{{ url_for('main.index') }}" data-ajax="false" data-icon="back" data-role="button">Back</a>
-            <h1>{{ action }}</h1>
-            <a href="{{ url_for('main.voter_delete', voterid=id) }}" data-ajax="false" data-icon="delete" data-role="button">Delete</a>
-        </div><!-- /header -->
+    <form method="POST" data-ajax="false" enctype=multipart/form-data>{{ form.csrf_token }}
 
-        <div data-role="content">
-            <form method="POST" data-ajax="false">{{ form.csrf_token }}
-                <div>
-                    <span style="float: left;">{{ form.dpi.label }}</span>
-                    <span style="float: right;color: red;">
-                        {% for error in form.dpi.errors %}
-                            {{error}}
-                        {% endfor %}
-                    </span>
-                    {{ form.dpi(size=13, **{'pattern':"[0-9]*"}) }}
-                </div>
-                <div>
-                    <span style="float: left;">{{ form.name.label }}</span>
-                    <span style="float: right;color: red;">
-                        {% for error in form.name.errors %}
-                            {{error}}
-                        {% endfor %}
-                    </span>
-                    {{ form.name() }}
-                </div>
-                <div>
-                    <span style="float: left;">{{ form.email.label }}</span>
-                    <span style="float: right;color: red;">
-                        {% for error in form.email.errors %}
-                            {{error}}
-                        {% endfor %}
-                    </span>
-                    {{ form.email() }}
-                </div>
+        {{ form.dpi.label }}
+        <span style="color: red;">
+        {% for error in form.dpi.errors %}
+            {{error}}
+        {% endfor %}
+        </span>
+        {{ form.dpi(size=13, **{'pattern':"[0-9]*", 'type':"number", 'v-model':"message"}) }}
 
-                {{ form.phone.label }}
-                {{ form.phone() }}
-                {{ form.city_id.label }}
-                {{ form.city_id() }}
-                {{ form.referred.label }}
-                {{ form.referred() }}
-
-                {{ form.submit(**{'data-role':"button", 'data-theme': "b"}) }}
-            </form>
-
-            {% for message in get_flashed_messages() %}
-                {{ message }}
+        {{ form.name.label }}
+        <span style="color: red;">
+            {% for error in form.name.errors %}
+                {{error}}
             {% endfor %}
+        </span>
+        {{ form.name() }}
+
+        {{ form.email.label }}
+        <span style="color: red;">
+            {% for error in form.email.errors %}
+                {{error}}
+            {% endfor %}
+        </span>
+        {{ form.email() }}
+
+        {{ form.phone.label }}
+        {{ form.phone() }}
+        {{ form.city_id.label }}
+        {{ form.city_id() }}
+        {{ form.referred.label }}
+        {{ form.referred() }}
+
+        {{ form.photo.label }}
+        <span style="color: red;">
+            {% for error in form.photo.errors %}
+                {{error}}
+            {% endfor %}
+        </span>
+        {{ form.photo(**{'accept':"image/*", 'capture': "camera"}) }}
+
+        {{ form.submit(**{'data-role':"button"}) }}
+    </form>
+
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
 
 
-        </div><!-- /content -->
-
-        <div data-role="footer" >
-            <h1></h1>
-        </div><!-- /footer -->
-
-    </div>
 {% endblock %}

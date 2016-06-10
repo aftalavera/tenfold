@@ -1,3 +1,4 @@
+from sqlalchemy.inspection import inspect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import UserMixin
 from . import db, login_manager
@@ -44,9 +45,18 @@ class Voter(db.Model):
     department = db.Column(db.String(100))
     city = db.Column(db.String(100))
     referred = db.Column(db.Text)
+    photo = db.Column(db.String(255))
     voted = db.Column(db.Boolean)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     city_id = db.Column(db.Integer, db.ForeignKey('cities.id'))
+
+    # def __iter__(self):
+    #     for column in self.__table__.columns:
+    #         yield (column.name, getattr(self, column.name))
+
+    def dict(self):
+        return dict(id=self.id, dpi=self.dpi, name=self.name, email=self.email, phone=self.phone,
+                    referred=self.referred, voted=self.voted, user_id=self.user_id, city_id=self.city_id)
 
 
 class City(db.Model):
